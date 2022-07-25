@@ -80,6 +80,11 @@ namespace WebApplication2
 
 
         }
+        void Gonder()
+        {
+
+            
+        }
 
     }
 }

@@ -40,10 +40,22 @@ namespace WebApplication2
                 SqlCommand kayit = new SqlCommand(sql, conn);
 
                 kayit.ExecuteNonQuery();
-                conn.Close();
+                
                 Response.Redirect("Admin.aspx");
+                
+              
+                
             }
             catch { }
+
+            
+            string sql1 = "Insert into TBLAUTH (RECDATE) values('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+            SqlCommand kayit1 = new SqlCommand(sql1, conn);
+
+            kayit1.ExecuteNonQuery();
+
+            Response.Redirect("Admin.aspx");
+            conn.Close();
 
         }
 
