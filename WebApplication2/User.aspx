@@ -27,7 +27,7 @@
             top: 260px;
             left: 837px;
             height: 81px;
-            width: 25%;
+            width: 28%;
             float: left;
             margin-right: 7px;
             margin-top: 0px;
@@ -80,8 +80,7 @@
                    <br />
                     <br
                         
-             </div><asp:TextBox ID="TextBox4" runat="server" class="form-control" placeholder="ID"></asp:TextBox> />
-            <br />
+             </div><asp:TextBox ID="TextBox4" runat="server" class="form-control" placeholder="ID"></asp:TextBox> &nbsp;<br />
             <asp:TextBox ID="TextBox5" runat="server" class="form-control" type="text" placeholder="USERNAME"></asp:TextBox>
              <br />
             <asp:DropDownList ID="DropDownList2" runat="server" class="form-control" placeholder="USERTYPE">
@@ -90,6 +89,8 @@
                  </asp:DropDownList>
              <br />
                  <asp:TextBox ID="TextBox6" runat="server" class="form-control" type="password" placeholder="PASSWORD"></asp:TextBox>
+                 <br />
+            <asp:TextBox ID="TextBox7" runat="server" class="form-control" type="password" placeholder="PASSWORD" OnTextChanged="TextBox7_TextChanged" Visible="False" ></asp:TextBox>
                  <br />
 &nbsp;
                  &nbsp;&nbsp;&nbsp;

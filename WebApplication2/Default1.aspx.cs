@@ -11,6 +11,8 @@ namespace WebApplication2
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
+        public string veri;
+        public int sayac;
         protected void Page_Load(object sender, EventArgs e)
         {
            
@@ -55,14 +57,80 @@ namespace WebApplication2
                     if (dt2.Rows.Count > 0)
                     {
 
-                        Response.Redirect("Admin.aspx");
+                        
+                        SqlCommand sql3 = new SqlCommand("Select ID From TBLUSERS where USERNAME=@ad AND PASSWORD=@sif  ", conn);
+                        SqlParameter prm5 = new SqlParameter("ad", TextBox1.Text.Trim());
+                        SqlParameter prm6 = new SqlParameter("sif", TextBox2.Text.Trim());
+                        sql3.Parameters.Add(prm5);
+                        sql3.Parameters.Add(prm6);
+                        DataTable dt3 = new DataTable();
+                        SqlDataAdapter da3=new SqlDataAdapter(sql3);
+                        da3.Fill(dt3);
+                        if (dt3.Rows.Count > 0) { 
+                        SqlDataReader dr= sql3.ExecuteReader();
+                        while(dr.Read())
+                        {
+                            Admin admin = new Admin();
+                            admin.veri=dr[0].ToString();
+                            Response.Redirect("Admin.aspx");
+                        }
 
+                    }
 
 
                     }
                     else
                     {
-                        Response.Redirect("User.aspx");
+                        SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
+                        conn.Open();
+                        SqlCommand sql3 = new SqlCommand("Select ID From TBLUSERS where USERNAME=@ad AND PASSWORD=@sif", conn);
+                        SqlParameter prm5 = new SqlParameter("ad", TextBox1.Text.Trim());
+                        SqlParameter prm6 = new SqlParameter("sif", TextBox2.Text.Trim());
+                        sql3.Parameters.Add(prm5);
+                        sql3.Parameters.Add(prm6);
+
+                        SqlDataReader dr = sql3.ExecuteReader();
+                        User user = new User();
+                      
+                        while (dr.Read())
+                        {
+
+                            veri = dr["ID"].ToString();
+                            TextBox1.Text = veri;
+                            Kullanici.KullaniciId = dr["ID"].ToString();
+                            
+                            sayac++;
+                            TextBox2.Text = Kullanici.KullaniciId;
+                            Response.Redirect("User.aspx");
+
+                        }
+                        dr.Close();
+                        conn.Close();
+                        
+                        
+                        //TextBox1.Text = dr[0].ToString();
+                        
+
+
+
+                        //sql3.ExecuteNonQuery();
+                        //SqlDataReader oku;
+                        //oku = sql3.ExecuteReader();
+
+                        //while (oku.Read())
+                        //{
+
+                        //    veris = oku["Ad"].ToString();
+
+
+                        //}
+                        //oku.Close();
+                        //sqlBaglantisi.Close();
+
+                        //User user = new User();
+                        //user.veris = sql4.ToString();
+                        //Response.Redirect("User.aspx");
+
                     }
                 }
 

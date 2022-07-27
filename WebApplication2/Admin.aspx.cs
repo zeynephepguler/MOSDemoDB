@@ -11,6 +11,7 @@ namespace WebApplication2
 {
     public partial class Admin : System.Web.UI.Page
     {
+        public string veri;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -33,7 +34,8 @@ namespace WebApplication2
             SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
         protected void Button1_Click(object sender, EventArgs e)
         {
-            try
+            
+                try
             {
                 conn.Open();
                 string sql = "Insert into TBLUSERS (USERNAME,PASSWORD,USERTYPE,RECDATE) values('" + TextBox2.Text + "', '" + int.Parse(TextBox3.Text) + "', '" + DropDownList1.SelectedValue + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";

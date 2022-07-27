@@ -11,13 +11,23 @@ namespace WebApplication2
 {
     public partial class User : System.Web.UI.Page
     {
-        
+        public string veris;
+        public TextBox TextBox4;
         protected void Page_Load(object sender, EventArgs e)
         {
+            //ID Id = new ID();
+            //textBox4.Text = veris;
+            Console.WriteLine(veris);
+            Button1.Enabled= false;
+            Button2.Enabled= false;
+            Button3.Enabled= false;
             if (!IsPostBack)
             {
                 grid();
             }
+            FunctionAdd();
+            FunctionDelete();
+            FunctionUpdate();
         }
         void grid()
         {
@@ -30,32 +40,23 @@ namespace WebApplication2
             GridView1.DataSource = dt;
             GridView1.DataBind();
             conn.Close();
+            
         }
         SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
         protected void Button1_Click(object sender, EventArgs e)
         {
             try
             {
+                 
+                                    
                 conn.Open();
-                string sql = "Select * From TBLAUTH where USERNAME=@adi AND PASSWORD=@sifresi AND ";
-                SqlParameter prm1 = new SqlParameter("adi", TextBox5.Text.Trim());
-                SqlParameter prm2 = new SqlParameter("sifresi", TextBox6.Text.Trim());
-                SqlCommand komut = new SqlCommand(sql, conn);
-                komut.Parameters.Add(prm1);
-                komut.Parameters.Add(prm2);
-                DataTable dt = new DataTable();
-                SqlDataAdapter da = new SqlDataAdapter(komut);
-                da.Fill(dt);
-
-                if (dt.Rows.Count > 0)
-
-                {  conn.Open();
                 string sql2 = "Insert into TBLUSERS (USERNAME,PASSWORD,USERTYPE,RECDATE) values('" + TextBox5.Text + "', '" + int.Parse(TextBox6.Text) + "', '" + DropDownList2.SelectedValue + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                 SqlCommand kayit = new SqlCommand(sql2, conn);
 
                 kayit.ExecuteNonQuery();
                 conn.Close();
-                Response.Redirect("Admin.aspx");}
+                Response.Redirect("User.aspx");
+                
                    
             }
             catch { }
@@ -71,7 +72,7 @@ namespace WebApplication2
 
                 kayit.ExecuteNonQuery();
                 conn.Close();
-                Response.Redirect("Admin.aspx");
+                Response.Redirect("User.aspx");
             }
             catch { }
         }
@@ -86,13 +87,74 @@ namespace WebApplication2
 
                 kayit.ExecuteNonQuery();
                 conn.Close();
-                Response.Redirect("Admin.aspx");
+                Response.Redirect("User.aspx");
             }
             catch { }
         }
-        void Bilgiler()
+        void FunctionAdd()
         {
-            
+            //ID Id = new ID();
+            User user= new User();
+           // user.veris = veri;
+
+            int veri = Convert.ToInt32(veris);
+            string sql = "Select * From TBLAUTH where USERID='"+Kullanici.KullaniciId+"' AND FONKSIYON='ADD' ";
+            //SqlParameter prm1=new SqlParameter("id",veris);
+            SqlCommand komut = new SqlCommand(sql, conn);
+            //komut.Parameters.AddWithValue("id", veris);
+            //komut.Parameters.Add(prm1);
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter(komut);
+            da.Fill(dt);
+            if(dt.Rows.Count > 0)
+            {
+                Button1.Enabled = true;
+            }
+
+
+        }
+        void FunctionUpdate()
+        {
+
+            //ID Id = new ID();
+            TextBox4.Text = veris;
+            //int veri = Convert.ToInt32(veris);
+            string sql = "Select * FROM TBLAUTH where USERID='"+ Kullanici.KullaniciId + "' AND FONKSIYON='UPDATE'";
+            //SqlParameter prm1 = new SqlParameter("id", veris);
+            SqlCommand komut = new SqlCommand(sql, conn);
+            //komut.Parameters.Add(prm1);
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter(komut);
+            da.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+                Button2.Enabled = true;
+            }
+
+
+        }
+        void FunctionDelete()
+        {
+            //ID Id = new ID();
+            //int veri = Convert.ToInt32(veris);
+            string sql = "Select * FROM TBLAUTH where USERID='"+ Kullanici.KullaniciId + "' AND FONKSIYON='DELETE'";
+            //SqlParameter prm1 = new SqlParameter("id", veris);
+            SqlCommand komut = new SqlCommand(sql, conn);
+            //komut.Parameters.Add( prm1);
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter(komut);
+            da.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+                Button3.Enabled = true;
+            }
+
+
+        }
+
+        protected void TextBox7_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
