@@ -25,7 +25,7 @@
                                             <br />
                                             <asp:TextBox ID="TextBox1" runat="server" type="text" class="form-control" placeholder="Kullanıcı Adı" style="background-color:#ffffff3d; color:white" Height="40px" Width="282px"></asp:TextBox>
                                             <br />
-                                            <asp:TextBox ID="TextBox2" runat="server" type="text" class="form-control" placeholder="Şifre" style="background-color:#ffffff3d; color:white" Height="40px" Width="282px"></asp:TextBox><br />
+                                            <asp:TextBox ID="TextBox2" runat="server" type="password" class="form-control" placeholder="Şifre" style="background-color:#ffffff3d; color:white" Height="40px" Width="282px"></asp:TextBox><br />
                                             <asp:Button ID="Button2" runat="server" Text="Button" class="btn btn-primary" style="background-color:chocolate" OnClick="Button2_Click" Height="42px" Width="121px"/>
                                      </div>
                                                 

@@ -21,14 +21,7 @@ namespace WebApplication2
         protected void Button2_Click(object sender, EventArgs e)
 
         {
-            //SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
-            //string sql = "Insert into TBLUSERS (USERNAME,PASSWORD) values('" + TextBox1.Text + "', '" + int.Parse(TextBox2.Text) + "')";
-            //SqlCommand kayit = new SqlCommand(sql, conn);
-            //conn.Open();
-            //kayit.ExecuteNonQuery();
-            //conn.Close();
-            //ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('kayıt başarıyla yapıldı.);", true);
-
+            
             try
             {
                 conn.Open();
@@ -93,6 +86,7 @@ namespace WebApplication2
                         User user = new User();
                       
                         while (dr.Read())
+
                         {
 
                             veri = dr["ID"].ToString();
@@ -107,30 +101,7 @@ namespace WebApplication2
                         dr.Close();
                         conn.Close();
                         
-                        
-                        //TextBox1.Text = dr[0].ToString();
-                        
-
-
-
-                        //sql3.ExecuteNonQuery();
-                        //SqlDataReader oku;
-                        //oku = sql3.ExecuteReader();
-
-                        //while (oku.Read())
-                        //{
-
-                        //    veris = oku["Ad"].ToString();
-
-
-                        //}
-                        //oku.Close();
-                        //sqlBaglantisi.Close();
-
-                        //User user = new User();
-                        //user.veris = sql4.ToString();
-                        //Response.Redirect("User.aspx");
-
+                      
                     }
                 }
 
@@ -148,11 +119,7 @@ namespace WebApplication2
 
 
         }
-        void Gonder()
-        {
-
-            
-        }
+       
 
     }
 }

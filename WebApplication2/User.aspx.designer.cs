@@ -24,6 +24,15 @@ namespace WebApplication2
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Button4 denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button4;
+
+        /// <summary>
         /// Button1 denetimi.
         /// </summary>
         /// <remarks>
@@ -60,6 +69,15 @@ namespace WebApplication2
         protected global::System.Web.UI.WebControls.GridView GridView1;
 
         /// <summary>
+        /// TextBox8 denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox8;
+
+        /// <summary>
         /// TextBox5 denetimi.
         /// </summary>
         /// <remarks>
@@ -87,12 +105,12 @@ namespace WebApplication2
         protected global::System.Web.UI.WebControls.TextBox TextBox6;
 
         /// <summary>
-        /// TextBox7 denetimi.
+        /// Button5 denetimi.
         /// </summary>
         /// <remarks>
         /// Otomatik olarak oluşturulan alan.
         /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox7;
+        protected global::System.Web.UI.WebControls.Button Button5;
     }
 }
