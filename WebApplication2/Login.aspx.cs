@@ -15,13 +15,13 @@ namespace WebApplication2
         public int sayac;
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
         }
         SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
         protected void Button2_Click(object sender, EventArgs e)
 
         {
-            
+
             try
             {
                 conn.Open();
@@ -50,25 +50,26 @@ namespace WebApplication2
                     if (dt2.Rows.Count > 0)
                     {
 
-                        
+
                         SqlCommand sql3 = new SqlCommand("Select ID From TBLUSERS where USERNAME=@ad AND PASSWORD=@sif  ", conn);
                         SqlParameter prm5 = new SqlParameter("ad", TextBox1.Text.Trim());
                         SqlParameter prm6 = new SqlParameter("sif", TextBox2.Text.Trim());
                         sql3.Parameters.Add(prm5);
                         sql3.Parameters.Add(prm6);
                         DataTable dt3 = new DataTable();
-                        SqlDataAdapter da3=new SqlDataAdapter(sql3);
+                        SqlDataAdapter da3 = new SqlDataAdapter(sql3);
                         da3.Fill(dt3);
-                        if (dt3.Rows.Count > 0) { 
-                        SqlDataReader dr= sql3.ExecuteReader();
-                        while(dr.Read())
+                        if (dt3.Rows.Count > 0)
                         {
-                            Admin admin = new Admin();
-                            admin.veri=dr[0].ToString();
-                            Response.Redirect("Admin.aspx");
-                        }
+                            SqlDataReader dr = sql3.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                Admin admin = new Admin();
+                                admin.veri = dr[0].ToString();
+                                Response.Redirect("Admin.aspx");
+                            }
 
-                    }
+                        }
 
 
                     }
@@ -84,7 +85,7 @@ namespace WebApplication2
 
                         SqlDataReader dr = sql3.ExecuteReader();
                         User user = new User();
-                      
+
                         while (dr.Read())
 
                         {
@@ -92,7 +93,7 @@ namespace WebApplication2
                             veri = dr["ID"].ToString();
                             TextBox1.Text = veri;
                             Kullanici.KullaniciId = dr["ID"].ToString();
-                            
+
                             sayac++;
                             TextBox2.Text = Kullanici.KullaniciId;
                             Response.Redirect("User.aspx");
@@ -100,8 +101,8 @@ namespace WebApplication2
                         }
                         dr.Close();
                         conn.Close();
-                        
-                      
+
+
                     }
                 }
 
@@ -119,7 +120,7 @@ namespace WebApplication2
 
 
         }
-       
+
 
     }
 }
