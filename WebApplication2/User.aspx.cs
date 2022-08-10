@@ -21,24 +21,24 @@ namespace WebApplication2
         public int cont = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            TextBox8.Visible = false;
-            TextBox5.Visible = false;
-            TextBox6.Visible = false;
-            DropDownList2.Visible = false;
-            Button5.Visible = false;
-            //ID Id = new ID();
-            //textBox4.Text = veris;
-            Console.WriteLine(veris);
-            Button1.Enabled= false;
-            Button2.Enabled= false;
-            Button3.Enabled= false;
-            Button1.Visible= false;
-            Button2.Visible = false;
-            Button3.Visible = false;
+            IDBox.Visible = false;
+            USERNAME.Visible = false;
+            PASS.Visible = false;
+            UserType.Visible = false;
+            CANCEL.Visible = false;
+
+            ADD.Enabled= false;
+            UPDATE.Enabled= false;
+            DELETE.Enabled= false;
+            Addn.Enabled= false;
+
+            ADD.Visible= false;
+            UPDATE.Visible = false;
+            DELETE.Visible = false;
            fuResim.Visible= false;
             FotoText.Visible=false;
             FotoButton.Visible=false;
-            loadİmage();
+           
 
             if (!IsPostBack)
             {
@@ -47,37 +47,39 @@ namespace WebApplication2
             FunctionAdd();
             FunctionDelete();
             FunctionUpdate();
-            
+            Menu();
+
+
         }
        
 
         
         void grid()
         {
-            SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
+            SqlConnection conn = new SqlConnection(@"Data Source=MSSQL12.MSSQLSERVER\MSSQL;Initial Catalog=mosyazil_db_staj;Integrated Security=True");
             conn.Open();
-            SqlCommand tablo = new SqlCommand("Select * From TBLUSERS WHERE USERTYPE='USER'", conn);
-            SqlDataAdapter da = new SqlDataAdapter(tablo);
+            SqlCommand table = new SqlCommand("Select * From TBLUSERS WHERE USERTYPE='USER'", conn);
+            SqlDataAdapter da = new SqlDataAdapter(table);
             DataTable dt = new DataTable();
             da.Fill(dt);
-            GridView1.DataSource = dt;
-            GridView1.DataBind();
+            PERSONS.DataSource = dt;
+            PERSONS.DataBind();
             conn.Close();
-            conn.Open();
-            SqlCommand tablo2 = new SqlCommand("Select (USERNAME) From TBLUSERS WHERE ID='"+Kullanici.KullaniciId+"'", conn);
-            SqlDataAdapter da2 = new SqlDataAdapter(tablo2);
-            DataTable dt2 = new DataTable();
-            da2.Fill(dt2);
-            GridView2.DataSource = dt2;
-            GridView2.DataBind();
-            conn.Close();
+            //conn.Open();
+            //SqlCommand tablo2 = new SqlCommand("Select USERNAME,PASSWORD,USERTYPE,İMAGENAME From TBLUSERS WHERE ID='"+Kullanici.KullaniciId+"'", conn);
+            //SqlDataAdapter da2 = new SqlDataAdapter(tablo2);
+            //DataTable dt2 = new DataTable();
+            //da2.Fill(dt2);
+            //GridView2.DataSource = dt2;
+            //GridView2.DataBind();
+            //conn.Close();
 
 
 
 
         }
-        SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
-        protected void Button1_Click(object sender, EventArgs e)
+        SqlConnection conn = new SqlConnection(@"Data Source=MSSQL12.MSSQLSERVER\MSSQL;Initial Catalog=mosyazil_db_staj;Integrated Security=True");
+        protected void ADD_Click(object sender, EventArgs e)
         {
             SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
             try
@@ -85,10 +87,10 @@ namespace WebApplication2
                  
                                     
                 conn.Open();
-                string sql2 = "Insert into TBLUSERS (USERNAME,PASSWORD,USERTYPE,RECDATE) values('" + TextBox5.Text + "', '" + int.Parse(TextBox6.Text) + "', '" + DropDownList2.SelectedValue + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
-                SqlCommand kayit = new SqlCommand(sql2, conn);
+                string sql2 = "Insert into TBLUSERS (USERNAME,PASSWORD,USERTYPE,RECDATE) values('" + USERNAME.Text + "', '" + int.Parse(PASS.Text) + "', '" + UserType.SelectedValue + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                SqlCommand save = new SqlCommand(sql2, conn);
 
-                kayit.ExecuteNonQuery();
+                save.ExecuteNonQuery();
                 conn.Close();
                 Response.Redirect("User.aspx");
                 
@@ -97,17 +99,17 @@ namespace WebApplication2
             catch { }
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
+        protected void UPDATE_Click(object sender, EventArgs e)
         {
-            SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
+            SqlConnection conn = new SqlConnection(@"Data Source=MSSQL12.MSSQLSERVER\MSSQL;Initial Catalog=mosyazil_db_staj;Integrated Security=True");
             try
             {   
                 
                 conn.Open();
-                string sql = "UPDATE  TBLUSERS set USERTYPE = '" + DropDownList2.SelectedValue + "',PASSWORD = '" + int.Parse(TextBox6.Text) + "',USERNAME = '" + TextBox5.Text + "', RECDATE = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where ID= '" + int.Parse(TextBox8.Text) + "'";
-                SqlCommand kayit = new SqlCommand(sql, conn);
+                string sql = "UPDATE  TBLUSERS set USERTYPE = '" + UserType.SelectedValue + "',PASSWORD = '" + int.Parse(PASS.Text) + "',USERNAME = '" + USERNAME.Text + "', RECDATE = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where ID= '" + int.Parse(IDBox.Text) + "'";
+                SqlCommand save = new SqlCommand(sql, conn);
 
-                kayit.ExecuteNonQuery();
+                save.ExecuteNonQuery();
                 conn.Close();
                 Response.Redirect("User.aspx");
             }catch { }
@@ -115,19 +117,19 @@ namespace WebApplication2
 
         }
 
-        protected void Button3_Click(object sender, EventArgs e)
+        protected void DELETE_Click(object sender, EventArgs e)
         {
             try
             {
                 conn.Open();
-                string sql = "DELETE  TBLAUTH where USERID= '" + int.Parse(TextBox8.Text) + "'";
-                SqlCommand kayit = new SqlCommand(sql, conn);
+                string sql = "DELETE  TBLAUTH where USERID= '" + int.Parse(IDBox.Text) + "'";
+                SqlCommand save = new SqlCommand(sql, conn);
 
-                kayit.ExecuteNonQuery();
-                string sql2 = "DELETE  TBLUSERS where ID= '" + int.Parse(TextBox8.Text) + "'";
-                SqlCommand kayit2 = new SqlCommand(sql2, conn);
+                save.ExecuteNonQuery();
+                string sql2 = "DELETE  TBLUSERS where ID= '" + int.Parse(IDBox.Text) + "'";
+                SqlCommand save2 = new SqlCommand(sql2, conn);
 
-                kayit2.ExecuteNonQuery();
+                save2.ExecuteNonQuery();
                 conn.Close();
                 
             }
@@ -136,17 +138,16 @@ namespace WebApplication2
         }
         void FunctionAdd()
         {
-            User user= new User();
-            int veri = Convert.ToInt32(veris);
+            
             string sql = "Select * From TBLAUTH where USERID='"+Kullanici.KullaniciId+"' AND FONKSIYON='ADD' ";
-            SqlCommand komut = new SqlCommand(sql, conn);
-           
+            SqlCommand command = new SqlCommand(sql, conn);
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(komut);
+            SqlDataAdapter da = new SqlDataAdapter(command);
             da.Fill(dt);
             if(dt.Rows.Count > 0)
             {
-                Button1.Enabled = true;
+                ADD.Enabled = true;
+                Addn.Enabled=  true;
                
             }
 
@@ -155,19 +156,16 @@ namespace WebApplication2
         void FunctionUpdate()
         {
 
-            //ID Id = new ID();
-            
-            //int veri = Convert.ToInt32(veris);
             string sql = "Select * FROM TBLAUTH where USERID='"+ Kullanici.KullaniciId + "' AND FONKSIYON='UPDATE'";
-            //SqlParameter prm1 = new SqlParameter("id", veris);
-            SqlCommand komut = new SqlCommand(sql, conn);
-            //komut.Parameters.Add(prm1);
+
+            SqlCommand command = new SqlCommand(sql, conn);
+
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(komut);
+            SqlDataAdapter da = new SqlDataAdapter(command);
             da.Fill(dt);
             if (dt.Rows.Count > 0)
             {
-                Button2.Enabled = true;
+                UPDATE.Enabled = true;
             }
 
 
@@ -175,137 +173,89 @@ namespace WebApplication2
         void FunctionDelete() 
 
         {
-            //ID Id = new ID();
-            //int veri = Convert.ToInt32(veris);
+
             string sql = "Select * FROM TBLAUTH where USERID='"+ Kullanici.KullaniciId + "' AND FONKSIYON='DELETE'";
-            //SqlParameter prm1 = new SqlParameter("id", veris);
-            SqlCommand komut = new SqlCommand(sql, conn);
-            //komut.Parameters.Add( prm1);
+
+            SqlCommand command = new SqlCommand(sql, conn);
+
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(komut);
+            SqlDataAdapter da = new SqlDataAdapter(command);
             da.Fill(dt);
             if (dt.Rows.Count > 0)
             {
-                Button3.Enabled = true;
+                DELETE.Enabled = true;
             }
 
 
         }
 
-        protected void TextBox7_TextChanged(object sender, EventArgs e)
+        protected void PERSONS_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-        }
-
-        protected void TextBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            TextBox8.Visible = false;
-            TextBox5.Visible = true;
-            TextBox6.Visible = true;
-            DropDownList2.Visible = true;
-            Button5.Visible = true;
-            Button2.Visible = true;
+            IDBox.Visible = false;
+            USERNAME.Visible = true;
+            PASS.Visible = true;
+            UserType.Visible = true;
+            CANCEL.Visible = true;
+            UPDATE.Visible = true;
             FotoText.Visible = true;
             FotoButton.Visible = true;
             fuResim.Visible = true;
-                 
+            
+            
                        
-            GridViewRow row = GridView1.Rows[SelectId()];
-            
-            TextBox8.Text = row.Cells[2].Text;
+            GridViewRow row = PERSONS.Rows[SelectId()];
+
+            IDBox.Text = row.Cells[2].Text;
             FotoText.Text = row.Cells[2].Text;
-            TextBox5.Text = HttpUtility.HtmlDecode(row.Cells[3].Text);
-            TextBox6.Text = row.Cells[4].Text;
-            DropDownList2.Text=row.Cells[5].Text;
-            if (cont == 1)
-            {
+            USERNAME.Text = HttpUtility.HtmlDecode(row.Cells[3].Text);
+            PASS.Text = row.Cells[4].Text;
+            UserType.Text=row.Cells[5].Text;
 
-                
 
-                
-            }
+
+        
                 
             
 
         }
-        protected void GridView1_RowCommand(Object sender, GridViewCommandEventArgs e)
+        protected void PERSONS_RowCommand(Object sender, GridViewCommandEventArgs e)
+    {
+
+        if (e.CommandName == "Delete_row")
         {
-            
-            if (e.CommandName == "Delete_row")
-            {
 
-                cont = 1;
-                Button3.Visible = true;
-                Button5.Visible = true;
-                TextBox5.Visible = true;
-                int index = Convert.ToInt32(e.CommandArgument);
+            cont = 1;
+            DELETE.Visible = true;
+            CANCEL.Visible = true;
+            USERNAME.Visible = true;
+            int index = Convert.ToInt32(e.CommandArgument);
 
-                GridViewRow row = GridView1.Rows[index];
-                TextBox8.Text = row.Cells[2].Text;
+            GridViewRow row = PERSONS.Rows[index];
+            IDBox.Text = row.Cells[2].Text;
 
 
-            }
         }
+    }
+
         public int SelectId()
         {
             int secili;
-            secili = GridView1.SelectedIndex;
+            secili = PERSONS.SelectedIndex;
                        
             return secili;
 
         }
     
      
-        //void CustomersGridView1_RowDeleting(Object sender, GridViewCommandEventArgs e)
-        //{
+       
 
-        //    if (e.CommandName == "Delete")
-        //    {
-
-
-        //        int secili;
-        //        secili = GridView1.SelectedIndex;
-        //        GridViewRow row = GridView1.Rows[secili];
-        //        TextBox8.Text = row.Cells[2].Text;
-        //        TextBox5.Text = HttpUtility.HtmlDecode(row.Cells[3].Text);
-        //        TextBox6.Text = row.Cells[4].Text;
-        //        DropDownList2.Text = row.Cells[5].Text;
-        //        try
-        //        {
-        //            conn.Open();
-        //            string sql = "DELETE  TBLAUTH where USERID= '" + int.Parse(TextBox8.Text) + "'";
-        //            SqlCommand kayit = new SqlCommand(sql, conn);
-
-        //            kayit.ExecuteNonQuery();
-        //            string sql2 = "DELETE  TBLUSERS where ID= '" + int.Parse(TextBox8.Text) + "'";
-        //            SqlCommand kayit2 = new SqlCommand(sql2, conn);
-
-        //            kayit2.ExecuteNonQuery();
-        //            conn.Close();
-
-        //        }
-        //        catch { }
-        //        Response.Redirect("User.aspx");
-
-        //    }
-
-        ////}
-
-
-
-
-        protected void Button5_Click(object sender, EventArgs e)
+        protected void CANCEL_Click(object sender, EventArgs e)
         {
-            TextBox8.Visible = false;
-            TextBox5.Visible = false;
-            TextBox6.Visible = false;
-            DropDownList2.Visible = false;
-            Button5.Visible=false;
+            IDBox.Visible = false;
+            USERNAME.Visible = false;
+            PASS.Visible = false;
+            UserType.Visible = false;
+            CANCEL.Visible=false;
             fuResim.Visible=false;
             FotoText.Visible=false;
             FotoButton.Visible=false;   
@@ -313,70 +263,28 @@ namespace WebApplication2
 
         protected void Add_Click(object sender, EventArgs e)
         {
-            TextBox5.Visible = true;
-            TextBox6.Visible = true;
-            DropDownList2.Visible = true;
-            Button5.Visible = true;
-            Button1.Visible = true;
+            USERNAME.Visible = true;
+            PASS.Visible = true;
+            UserType.Visible = true;
+            CANCEL.Visible = true;
+            ADD.Visible = true;
             fuResim.Visible=true;
             FotoText.Visible=true;
             FotoButton.Visible = true;
         }
-
-        protected void TextBox8_TextChanged(object sender, EventArgs e)
+        protected void Addnn_Click(object sender, EventArgs e)
         {
-
+            USERNAME.Visible = true;
+            PASS.Visible = true;
+            UserType.Visible = true;
+            CANCEL.Visible = true;
+            ADD.Visible = true;
+            fuResim.Visible = true;
+            FotoText.Visible = true;
+            FotoButton.Visible = true;
         }
-        //public void InsertFoto(string İMAGENAME, byte[] İMAGE)
-        //{
-        //    using (SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True"))
-        //    {
-        //        if (conn.State != ConnectionState.Closed)
-        //            conn.Open();
-                
-        //        using (SqlCommand cmd = new SqlCommand("insert into TBLUSERS (İMAGENAME,İMAGE) values(@İMAGENAME ,@İMAGE)"))
-        //        {
-        //            cmd.CommandType = CommandType.Text;
-        //            cmd.Parameters.AddWithValue("@İMAGENAME", FotoText.Text);
-        //            cmd.Parameters.AddWithValue("@İMAGE", İMAGE);
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-        //    conn.Close();
-        //}
-        //public void loadData()
-        //{
-        //    using(SqlConnection conn =new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True"))
-        //    {
-        //        if(conn.State != ConnectionState.Closed)
-        //            conn.Open();
-            
-            
-        //        using(DataTable dt = new DataTable("TBLUSER"))
-        //        {
-        //            SqlDataAdapter adapter = new SqlDataAdapter("select * from TBLUSERS  ", conn);
-        //            adapter.Fill(dt);
 
-        //        }
-        //    }
-        //}
-        
-        //byte[] ConvertImageToBytes(Image img)
-        //{
-        //    using(MemoryStream ms=new MemoryStream())
-        //    {
-        //        img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-        //        return ms.ToArray();
-        //    }
-        //}
 
-        //public Image ConvertByteArrayToImage(byte[] data)
-        //{
-        //    using(MemoryStream ms=new MemoryStream(data))
-        //    {
-        //        return Image.FromStream(ms);
-        //    }
-        //}
         string uzanti = "";
         string resimadi = "";
         protected void FotoButton_Click(object sender, EventArgs e)
@@ -424,8 +332,8 @@ namespace WebApplication2
                 }
 
 
-                SqlConnection baglanti = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
-                baglanti.Open();
+            SqlConnection baglanti = new SqlConnection(@"Data Source=MSSQL12.MSSQLSERVER\MSSQL;Initial Catalog=mosyazil_db_staj;Integrated Security=True");
+            baglanti.Open();
 
             //SqlCommand cmd = new SqlCommand("UPDATE TBLUSERS (İMAGENAME,İMAGE) set IMAGENAME=@İMAGENAME ,IMAGE=@İMAGE where USERID='" + Kullanici.KullaniciId + "'", baglanti) ;
             string sql = "UPDATE  TBLUSERS set İMAGENAME=@İMAGENAME ,İMAGE=@İMAGE   where  ID='" + FotoText.Text + "'";
@@ -433,7 +341,7 @@ namespace WebApplication2
 
                 
                 cmd.Parameters.AddWithValue("@İMAGE", FotoText.Text);
-                cmd.Parameters.AddWithValue("@İMAGENAME", resimadi);
+                cmd.Parameters.AddWithValue("@İMAGENAME","Resimler/"+ resimadi);
                 cmd.ExecuteNonQuery();
                 baglanti.Close();
 
@@ -445,36 +353,19 @@ namespace WebApplication2
 
             
         }
-      void loadİmage()
+    
+        void Menu()
         {
-
-            
-            
-
-        }
-        //void C()
-        //{
-        //  conn.Open(); 
-        //    SqlCommand sql =new SqlCommand("SELECT *FROM TBLUSERS  where  ID='" + Kullanici.KullaniciId + "'",conn);
-        //    sql.ExecuteNonQuery();
-
-        //    SqlDataReader dr;
-        //    dr = sql.ExecuteReader();
-
-        //    string adress;
-        //    while (dr.Read())
-        //    {
-
-        //        adress = dr[4].ToString(); 
-        //        foto.ImageUrl=adress;
-        //    }
-        //    //con.Close();
-           
-        //}
-
-        protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
-        {
-
+            conn.Open();
+            SqlCommand sql = new SqlCommand("SELECT * FROM TBLUSERS where ID='"+Kullanici.KullaniciId+"'",conn);
+            SqlDataReader re=sql.ExecuteReader();
+            while (re.Read())
+            {
+                UNAME.Text = re[1].ToString();
+                UIMAGE.ImageUrl = re[4].ToString();
+                Console.WriteLine(UIMAGE.ImageUrl);
+              
+            }
         }
     }
 }

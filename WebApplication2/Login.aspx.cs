@@ -17,7 +17,7 @@ namespace WebApplication2
         {
 
         }
-        SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=MSSQL12.MSSQLSERVER\MSSQL;Initial Catalog=mosyazil_db_staj;Integrated Security=True");
         protected void Button2_Click(object sender, EventArgs e)
 
         {
@@ -75,7 +75,7 @@ namespace WebApplication2
                     }
                     else
                     {
-                        SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
+                        SqlConnection conn = new SqlConnection(@"Data Source=MSSQL12.MSSQLSERVER\MSSQL;Initial Catalog=mosyazil_db_staj;Integrated Security=True");
                         conn.Open();
                         SqlCommand sql3 = new SqlCommand("Select ID From TBLUSERS where USERNAME=@ad AND PASSWORD=@sif", conn);
                         SqlParameter prm5 = new SqlParameter("ad", TextBox1.Text.Trim());
