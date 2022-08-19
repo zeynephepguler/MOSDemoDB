@@ -42,6 +42,33 @@ namespace WebApplication2
         protected global::System.Web.UI.WebControls.Label UNAME;
 
         /// <summary>
+        /// Usyd denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Usyd;
+
+        /// <summary>
+        /// Utype denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Utype;
+
+        /// <summary>
+        /// ushow denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ushow;
+
+        /// <summary>
         /// Addn denetimi.
         /// </summary>
         /// <remarks>
@@ -78,15 +105,6 @@ namespace WebApplication2
         protected global::System.Web.UI.WebControls.TextBox FotoText;
 
         /// <summary>
-        /// FotoButton denetimi.
-        /// </summary>
-        /// <remarks>
-        /// Otomatik olarak oluşturulan alan.
-        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button FotoButton;
-
-        /// <summary>
         /// fuResim denetimi.
         /// </summary>
         /// <remarks>
@@ -96,6 +114,15 @@ namespace WebApplication2
         protected global::System.Web.UI.WebControls.FileUpload fuResim;
 
         /// <summary>
+        /// FotoButton denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button FotoButton;
+
+        /// <summary>
         /// USERNAME denetimi.
         /// </summary>
         /// <remarks>
@@ -103,6 +130,15 @@ namespace WebApplication2
         /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox USERNAME;
+
+        /// <summary>
+        /// Ulastname denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Ulastname;
 
         /// <summary>
         /// UserType denetimi.
@@ -157,5 +193,14 @@ namespace WebApplication2
         /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button DELETE;
+
+        /// <summary>
+        /// Exit denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton Exit;
     }
 }

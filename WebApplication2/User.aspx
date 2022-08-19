@@ -57,18 +57,32 @@
         .auto-style11 {
             width: 92px;
         }
-        .auto-style12 {
-            font-size: xx-small;
-            margin-right: 2px;
-            margin-top: 5px;
-        }
         .auto-style13 {
             margin-right: 301px;
         }
-        .auto-style14 {
-            font-size: large;
+        .auto-style15 {
+          position:absolute;
+          right:25px;
+          margin-top:25px;
+          border-radius:30px 30px 30px 30px;
+          color:white;
+          background-color:#ffffff52;
+          border-style: solid; 
+          border-color: inherit; 
+          border-width: 2px; 
+          background-color:#ffffff1a; 
+          color:white; 
+          border-block-color:white;
+          box-shadow: 3px 3px 4px #aa5f0300;
+          font-size:medium;
+          
+      }
+        .auto-style16 {
+            width: 190px;
+            margin-left: 37px;
+            margin-right: 9px;
         }
-    </style>
+        </style>
  
 
     <link href="Menu.css" rel="stylesheet" />
@@ -87,16 +101,32 @@
             <asp:Image ID="UIMAGE" runat="server" class="i"/>
                <br />
                <br />
-            <asp:Label ID="UNAME" runat="server"  class="t"  ></asp:Label>
+            <table class="auto-style16">
+            <tr><td><h4> Adı :</h4></td><td><asp:Label ID="UNAME" runat="server"  class="t"  ></asp:Label></td></tr>
+                 <tr><td><h5 > Soyadı :</h5></td><td ><asp:Label ID="Usyd" runat="server"  class="t"  ></asp:Label></td></tr>
+            <tr><td><h4> Tipi :</h4></td><td><asp:Label ID="Utype" runat="server"  class="t"  ></asp:Label></td></tr>
+        
+            </table>
+            
+            
+            
            
            
-             
-        </li>
-  <li><a class="active" href="#">Kullanıcı Ekle</a></li>
-
-  <li><a href="#news">Kullanıcı Listele</a></li>
-
-  
+             </li>
+        
+          <li><a href="#">
+      <asp:Button runat="server" Text="Kullanıcı Listele" style="margin: 0px;
+    padding: 0;
+    left:0px;
+    width: 100%;
+    height:35px;
+    background-color: #4caf50ce;
+    font-size: small;
+    color: #ffffff;
+    padding: 8px 16px;    
+    border-color:azure;
+    " id="ushow" OnClick="ushow_Click"/>
+      </a></li>  
 </ul>
 
 
@@ -104,9 +134,9 @@
    
 
      
-             <div class="auto-style2">
-             
-
+             <div id="gTable"
+                 class="auto-style2">
+         
                         
                      
              
@@ -114,8 +144,10 @@
 
   
             <br />
-            <table  class="auto-style8" style="background-color:#ffffffff; color:white;border-block-color:white; box-shadow: 5px 5px 6px #00000040; border-radius:25px 25px 25px 25px;"><tr><td><strong><asp:Button runat="server" ID="Addn" Text="ADD new user +" CssClass="auto-style7" style="background-color:#ffffff1b; color:gray;border-block-color:gray;border:3px solid" Height="28px" Width="185px" OnClick="Add_Click"/></strong></td></tr><tr><td>
-                <asp:GridView style="border-radius:5px 5px 5px 5px;" ID="PERSONS" runat="server" Height="346px" Width="581px"  OnRowCommand="PERSONS_RowCommand"  OnSelectedIndexChanged="PERSONS_SelectedIndexChanged" CssClass="auto-style6" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal">
+                 
+            <table runat="server" class="auto-style8"  >
+                <tr><td><strong><asp:Button runat="server" ID="Addn" Text="ADD new user +" CssClass="auto-style7" style="background-color:white; color:gray;border-block-color:gray;border:3px solid" Height="28px" Width="185px" OnClick="Add_Click"/></strong></td></tr><tr><td>
+                <asp:GridView style="border-radius:25px 25px 25px 25px;text-align:center; "  ID="PERSONS" runat="server" Height="346px" Width="581px"  OnRowCommand="PERSONS_RowCommand"  OnSelectedIndexChanged="PERSONS_SelectedIndexChanged" CssClass="auto-style6" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal">
                   
                 <Columns>
                 <asp:ButtonField CommandName="Select" Text="Düzenle" />
@@ -142,11 +174,18 @@
             <div class="auto-style11" >
             <td> </td>
 
+            <asp:FileUpload ID="fuResim" runat="server" />
+
                 <asp:Button ID="FotoButton" runat="server" Text="Ekle" class="btn btn-primary" style="background-color:gray" Height="22px" Width="79px" CssClass="auto-style10" OnClick="FotoButton_Click"/>
 
             </div>
-            <asp:FileUpload ID="fuResim" runat="server" />
             <asp:TextBox ID="USERNAME" runat="server" class="form-control" type="text" placeholder="USERNAME" Width="300px"></asp:TextBox></tr>
+                 <tr>
+                    <td>
+                             <asp:TextBox ID="Ulastname" runat="server" class="form-control" type="text" placeholder="LASTNAME" Width="295px" Height="30px"></asp:TextBox>
+
+                    </td>
+                </tr>
                 <tr><asp:DropDownList ID="UserType" runat="server" class="form-control" placeholder="USERTYPE" Width="300px">
                 <asp:ListItem>ADMIN</asp:ListItem>
                 <asp:ListItem>USER</asp:ListItem>
@@ -159,7 +198,9 @@
             <asp:Button ID="UPDATE" runat="server" Text="UPDATE" class="btn btn-primary" style="background-color:gray" Height="37px" Width="121px" OnClick="UPDATE_Click"/>
             <asp:Button ID="DELETE" runat="server" Text="DELETE" class="btn btn-primary" style="background-color:gray" Height="37px" Width="121px" OnClick="DELETE_Click"/>
            
-             </div>      
+             </div>   
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <asp:ImageButton ID="Exit" runat="server" CssClass="auto-style15" Height="50px" Width="50px" src="home.svg" OnClick="Exit_Click"/>   
         </form>    
             
           
@@ -169,7 +210,6 @@
     
         
   
-   
  </body>
 
 

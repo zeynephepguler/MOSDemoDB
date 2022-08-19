@@ -19,10 +19,14 @@ namespace WebApplication2
         public string veris;
         public event System.Web.UI.WebControls.GridViewCommandEventHandler RowCommand;
         public int cont = 0;
+        public int sayac=0;
+       
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             IDBox.Visible = false;
             USERNAME.Visible = false;
+            Ulastname.Visible = false;
             PASS.Visible = false;
             UserType.Visible = false;
             CANCEL.Visible = false;
@@ -38,16 +42,18 @@ namespace WebApplication2
            fuResim.Visible= false;
             FotoText.Visible=false;
             FotoButton.Visible=false;
-           
+            
 
             if (!IsPostBack)
             {
                 grid();
+                One();
             }
             FunctionAdd();
             FunctionDelete();
             FunctionUpdate();
             Menu();
+
 
 
         }
@@ -56,7 +62,7 @@ namespace WebApplication2
         
         void grid()
         {
-            SqlConnection conn = new SqlConnection(@"Data Source=MSSQL12.MSSQLSERVER\MSSQL;Initial Catalog=mosyazil_db_staj;Integrated Security=True");
+            SqlConnection conn = new SqlConnection(@"Data Source=mssql11.turhost.com;Initial Catalog=mosyazil_DB_Staj;User ID=stajuser;Password=ADMm@s1298;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             conn.Open();
             SqlCommand table = new SqlCommand("Select * From TBLUSERS WHERE USERTYPE='USER'", conn);
             SqlDataAdapter da = new SqlDataAdapter(table);
@@ -78,42 +84,43 @@ namespace WebApplication2
 
 
         }
-        SqlConnection conn = new SqlConnection(@"Data Source=MSSQL12.MSSQLSERVER\MSSQL;Initial Catalog=mosyazil_db_staj;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=mssql11.turhost.com;Initial Catalog=mosyazil_DB_Staj;User ID=stajuser;Password=ADMm@s1298;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         protected void ADD_Click(object sender, EventArgs e)
         {
-            SqlConnection conn = new SqlConnection(@"Data Source=ZEYNEP\TEW_SQLEXPRESS;Initial Catalog=MOSDemoDB;Integrated Security=True");
+            SqlConnection conn = new SqlConnection(@"Data Source=mssql11.turhost.com;Initial Catalog=mosyazil_DB_Staj;User ID=stajuser;Password=ADMm@s1298;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             try
+                 
             {
                  
                                     
                 conn.Open();
-                string sql2 = "Insert into TBLUSERS (USERNAME,PASSWORD,USERTYPE,RECDATE) values('" + USERNAME.Text + "', '" + int.Parse(PASS.Text) + "', '" + UserType.SelectedValue + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                string sql2 = "Insert into TBLUSERS (USERNAME,PASSWORD,USERTYPE,RECDATE,LASTNAME) values('" + USERNAME.Text + "', '" + int.Parse(PASS.Text) + "', '" + UserType.SelectedValue + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + Ulastname.Text + "')";
                 SqlCommand save = new SqlCommand(sql2, conn);
 
                 save.ExecuteNonQuery();
                 conn.Close();
-                Response.Redirect("User.aspx");
+                
                 
                    
             }
-            catch { }
+            catch { }Response.Redirect("User.aspx");
         }
 
         protected void UPDATE_Click(object sender, EventArgs e)
         {
-            SqlConnection conn = new SqlConnection(@"Data Source=MSSQL12.MSSQLSERVER\MSSQL;Initial Catalog=mosyazil_db_staj;Integrated Security=True");
+            SqlConnection conn = new SqlConnection(@"Data Source=mssql11.turhost.com;Initial Catalog=mosyazil_DB_Staj;User ID=stajuser;Password=ADMm@s1298;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             try
             {   
                 
                 conn.Open();
-                string sql = "UPDATE  TBLUSERS set USERTYPE = '" + UserType.SelectedValue + "',PASSWORD = '" + int.Parse(PASS.Text) + "',USERNAME = '" + USERNAME.Text + "', RECDATE = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where ID= '" + int.Parse(IDBox.Text) + "'";
+                string sql = "UPDATE  TBLUSERS set USERTYPE = '" + UserType.SelectedValue + "',PASSWORD = '" + int.Parse(PASS.Text) + "',USERNAME = '" + USERNAME.Text + "', RECDATE = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "',LASTNAME='" + Ulastname.Text + "' where ID= '" + int.Parse(IDBox.Text) + "'";
                 SqlCommand save = new SqlCommand(sql, conn);
 
                 save.ExecuteNonQuery();
                 conn.Close();
-                Response.Redirect("User.aspx");
+                
             }catch { }
-           
+           Response.Redirect("User.aspx");
 
         }
 
@@ -193,11 +200,12 @@ namespace WebApplication2
         {
             IDBox.Visible = false;
             USERNAME.Visible = true;
+            Ulastname.Visible = true;
             PASS.Visible = true;
             UserType.Visible = true;
             CANCEL.Visible = true;
             UPDATE.Visible = true;
-            FotoText.Visible = true;
+            FotoText.Visible = false;
             FotoButton.Visible = true;
             fuResim.Visible = true;
             
@@ -228,7 +236,8 @@ namespace WebApplication2
             DELETE.Visible = true;
             CANCEL.Visible = true;
             USERNAME.Visible = true;
-            int index = Convert.ToInt32(e.CommandArgument);
+                Ulastname.Visible = true;
+                int index = Convert.ToInt32(e.CommandArgument);
 
             GridViewRow row = PERSONS.Rows[index];
             IDBox.Text = row.Cells[2].Text;
@@ -253,6 +262,7 @@ namespace WebApplication2
         {
             IDBox.Visible = false;
             USERNAME.Visible = false;
+            Ulastname.Visible = false;
             PASS.Visible = false;
             UserType.Visible = false;
             CANCEL.Visible=false;
@@ -264,24 +274,26 @@ namespace WebApplication2
         protected void Add_Click(object sender, EventArgs e)
         {
             USERNAME.Visible = true;
+            Ulastname.Visible = true;
             PASS.Visible = true;
             UserType.Visible = true;
             CANCEL.Visible = true;
             ADD.Visible = true;
-            fuResim.Visible=true;
-            FotoText.Visible=true;
-            FotoButton.Visible = true;
+            fuResim.Visible=false;
+            FotoText.Visible=false;
+            FotoButton.Visible = false;
         }
         protected void Addnn_Click(object sender, EventArgs e)
         {
             USERNAME.Visible = true;
+            Ulastname.Visible = true;
             PASS.Visible = true;
             UserType.Visible = true;
             CANCEL.Visible = true;
             ADD.Visible = true;
-            fuResim.Visible = true;
-            FotoText.Visible = true;
-            FotoButton.Visible = true;
+            fuResim.Visible = false;
+            FotoText.Visible = false;
+            FotoButton.Visible = false;
         }
 
 
@@ -332,7 +344,7 @@ namespace WebApplication2
                 }
 
 
-            SqlConnection baglanti = new SqlConnection(@"Data Source=MSSQL12.MSSQLSERVER\MSSQL;Initial Catalog=mosyazil_db_staj;Integrated Security=True");
+            SqlConnection baglanti = new SqlConnection(@"Data Source=mssql11.turhost.com;Initial Catalog=mosyazil_DB_Staj;User ID=stajuser;Password=ADMm@s1298;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             baglanti.Open();
 
             //SqlCommand cmd = new SqlCommand("UPDATE TBLUSERS (İMAGENAME,İMAGE) set IMAGENAME=@İMAGENAME ,IMAGE=@İMAGE where USERID='" + Kullanici.KullaniciId + "'", baglanti) ;
@@ -362,10 +374,37 @@ namespace WebApplication2
             while (re.Read())
             {
                 UNAME.Text = re[1].ToString();
+                Utype.Text = re[3].ToString();
+                Usyd.Text = re[7].ToString();
                 UIMAGE.ImageUrl = re[4].ToString();
-                Console.WriteLine(UIMAGE.ImageUrl);
+                
               
             }
+            conn.Close();
+        }
+
+        
+        protected void ushow_Click(object sender, EventArgs e)
+        {
+            PERSONS.Visible = !PERSONS.Visible;
+            Addn.Visible = !Addn.Visible;
+
+        }
+        void One()
+        {
+            if (sayac == 0)
+            {
+                PERSONS.Visible = false;
+                Addn.Visible=false;
+                sayac = 15;
+            }
+
+
+        }
+
+        protected void Exit_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("Login.aspx");
         }
     }
 }
